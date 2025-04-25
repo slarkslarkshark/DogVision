@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RTSP Stream</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        #video-container {
+            margin: 20px auto;
+            width: 640px;
+            height: 360px;
+            border: 1px solid #ccc;
+        }
+        #metrics {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>RTSP Stream</h1>
+
+    <!-- Видео -->
+    <div id="video-container">
+        <img src="{{ url_for('video_feed') }}" alt="RTSP Stream">
+    </div>
+
+    <!-- Метрики -->
+    <div id="metrics">
+        <p><strong>FPS:</strong> <span id="fps">N/A</span></p>
+    </div>
+
+    <!-- JavaScript для обновления метрик -->
+    <script>
+        function updateMetrics() {
+            fetch('/metrics')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('fps').textContent = data.fps;
+                });
+        }
+
+        // Обновление метрик каждую секунду
+        setInterval(updateMetrics, 1000);
+    </script>
+</body>
+</html>
