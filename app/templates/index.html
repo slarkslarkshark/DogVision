@@ -3,49 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RTSP Stream</title>
+    <title>Camera Control</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
+            margin-top: 50px;
         }
-        #video-container {
-            margin: 20px auto;
-            width: 640px;
-            height: 360px;
-            border: 1px solid #ccc;
+
+        .controller {
+            display: inline-block;
+            position: relative;
+            width: 200px;
+            height: 200px;
         }
-        #metrics {
-            margin-top: 20px;
-            font-size: 18px;
+
+        .button {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .up {
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .down {
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .left {
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .right {
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .center {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #dc3545;
         }
     </style>
 </head>
 <body>
-    <h1>RTSP Stream</h1>
+    <h1>Camera Feed</h1>
+    <img src="{{ url_for('main.video_feed') }}" alt="RTSP Stream">
 
-    <!-- Видео -->
-    <div id="video-container">
-        <img src="{{ url_for('main.video_feed') }}" alt="RTSP Stream">
+    <h2>Camera Controls</h2>
+    <div class="controller">
+        <button class="button up" id="up">↑</button>
+        <button class="button down" id="down">↓</button>
+        <button class="button left" id="left">←</button>
+        <button class="button right" id="right">→</button>
+        <button class="button center" id="reset">Reset</button>
     </div>
 
-    <!-- Метрики -->
-    <div id="metrics">
-        <p><strong>FPS:</strong> <span id="fps">N/A</span></p>
-    </div>
-
-    <!-- JavaScript для обновления метрик -->
-    <script>
-        function updateMetrics() {
-            fetch('/metrics')
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('fps').textContent = data.fps;
-                });
-        }
-
-        // Обновление метрик каждую секунду
-        setInterval(updateMetrics, 1000);
-    </script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
