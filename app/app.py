@@ -6,10 +6,9 @@ from routes.camera_controls import camera_bp
 
 app = Flask(__name__)
 
-# Регистрация Blueprints
 app.register_blueprint(main_bp)
 app.register_blueprint(metrics_bp)
-app.register_blueprint(camera_bp, url_prefix='/camera')
+app.register_blueprint(camera_bp, url_prefix="/camera")
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(host=Config.HOST, port=Config.PORT, debug=Config.DEBUG)
