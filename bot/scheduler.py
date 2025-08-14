@@ -3,27 +3,28 @@ from apscheduler.triggers.cron import CronTrigger
 from datetime import datetime, time as dt_time
 from config import GeneralConfig as cfg
 from bot.keyboards import get_main_keyboard
-from help_tools.logger_worker import LoggerWorker
 
 scheduler = AsyncIOScheduler(timezone=cfg.TIMEZONE)
 bot = None
 state_manager = None
 process_manager = None
 
-project_logger = LoggerWorker().logger
+project_logger = None
 
 
-def setup_scheduler(dp_bot, sm, pm):
+def setup_scheduler(dp_bot, sm, pm, prj_logger):
     """
     Инициализация планировщика.
     :param dp_bot: экземпляр Bot
     :param sm: экземпляр StateManager
     :param pm: экземпляр ProcessManager
     """
-    global bot, state_manager, process_manager
+    global bot, state_manager, process_manager, project_logger
+
     bot = dp_bot
     state_manager = sm
     process_manager = pm
+    project_logger = prj_logger
 
     # Ежедневный запуск цикла напоминаний в 11:00
     scheduler.add_job(

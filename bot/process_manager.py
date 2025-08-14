@@ -7,8 +7,8 @@ import time
 
 
 class ProcessManager:
-    def __init__(self):
-        self.project_logger = LoggerWorker().logger
+    def __init__(self, project_logger):
+        self.project_logger = project_logger
         self.manager = mp.Manager()
         self.cam_hub: Optional[mp.Process] = None
         self.nn_hub: Optional[mp.Process] = None

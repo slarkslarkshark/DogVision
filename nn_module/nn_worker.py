@@ -2,7 +2,6 @@ from multiprocessing import Queue
 from help_tools.data_containers import FrameData, KeyPointsData
 from queue import Empty
 import loguru
-from help_tools.logger_worker import LoggerWorker
 from ultralytics import YOLO
 from config import NNConfig as cfg
 from numpy import float16
@@ -52,8 +51,8 @@ class NNWorker:
         self.kp_queue.put(keypoints)
         # self.project_logger.info("""Putting keypoints on the queue.""")
 
-    def start(self):
-        self.project_logger = LoggerWorker().logger
+    def start(self, project_logger):
+        self.project_logger = project_logger
 
         if self.model is None:
             self.model = YOLO(cfg.model_path)

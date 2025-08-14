@@ -1,7 +1,6 @@
 from __future__ import annotations
 from multiprocessing import Queue, Value
 import loguru
-from help_tools.logger_worker import LoggerWorker
 from help_tools.data_containers import FrameData
 from .cam_reader import CameraReader
 import cv2
@@ -76,8 +75,8 @@ class CameraWorker:
                 # self.project_logger.critical("General queue is full.")
                 del frame_data
 
-    def start_camera_process(self):
-        self.project_logger = LoggerWorker().logger
+    def start_camera_process(self, logger):
+        self.project_logger = logger
 
         self.camera_reader: CameraReader = CameraReader(
             project_logger=self.project_logger,

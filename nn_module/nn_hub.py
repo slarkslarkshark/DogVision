@@ -28,6 +28,7 @@ class NNHub:
         )
         process = mp.Process(
             target=self.model.start,
+            args=((self.project_logger,)),
             daemon=True,
         )
         self.processes["dog_yolo_pose"] = process

@@ -4,12 +4,13 @@ import threading
 
 
 class StatsCollector:
-    def __init__(self):
+    def __init__(self, project_logger=None):
         self.kp_queue: mp.Queue = None
         self.stats = {"frames": 0, "lying": 0, "standing": 0}
         self.is_running = False
         self.start_time = None
         self.thread = None
+        self.project_logger = project_logger
 
     def set_queue(self, queue: mp.Queue):
         self.kp_queue = queue

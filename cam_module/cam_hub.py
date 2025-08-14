@@ -36,6 +36,7 @@ class CamHub:
 
             process = mp.Process(
                 target=stream.start_camera_process,
+                args=((self.project_logger,)),
                 daemon=True,
             )
             self.processes[camera_name] = process

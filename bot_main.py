@@ -19,10 +19,10 @@ project_logger = LoggerWorker().logger
 bot = Bot(token=cfg.TG_BOT_TOKEN)
 dp = Dispatcher()
 
-process_manager = ProcessManager()
-state_manager = StateManager()
+process_manager = ProcessManager(project_logger)
+state_manager = StateManager(project_logger)
 
-stats_collector = StatsCollector()
+stats_collector = StatsCollector(project_logger)
 stats_collector.set_queue(process_manager.kp_queue)
 
 
@@ -235,7 +235,7 @@ async def notify_all_users_about_state(exclude_user_id: int = None):
 
 async def main():
     project_logger.info("Запуск Telegram-бота...")
-    setup_scheduler(bot, state_manager, process_manager)
+    setup_scheduler(bot, state_manager, process_manager, prj_logger=project_logger)
     await dp.start_polling(bot)
 
 

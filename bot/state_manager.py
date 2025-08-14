@@ -2,11 +2,12 @@ from datetime import datetime, date
 
 
 class StateManager:
-    def __init__(self):
+    def __init__(self, project_logger=None):
         self.is_tracking = False
         self.tracking_start_time = None
         self.tracking_disabled_today = False
         self.last_reset_date = date.today()
+        self.project_logger = project_logger
 
     def _ensure_daily_reset(self):
         """Сброс флага 'без отслеживания' в начале нового дня"""
