@@ -1,5 +1,6 @@
 from onvif import ONVIFCamera
 
+
 class ONVIF(ONVIFCamera):
     """
     :param host: IP-адрес камеры.

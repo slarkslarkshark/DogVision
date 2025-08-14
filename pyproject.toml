@@ -5,8 +5,18 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "aiogram>=3.21.0",
+    "apscheduler>=3.11.0",
+    "dotenv>=0.9.9",
     "flask>=3.1.0",
+    "loguru>=0.7.3",
     "onvif-zeep>=0.2.12",
     "opencv-python>=4.11.0.86",
+    "ultralytics>=8.3.168",
     "zeep>=4.3.1",
+]
+
+[dependency-groups]
+dev = [
+    "ipykernel>=6.29.5",
 ]
